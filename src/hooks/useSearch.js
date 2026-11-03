@@ -41,14 +41,12 @@ export function useSearch(query) {
         // 404 → sin resultados, no es error
         if (response.status === 404) {
           setResults([]);
-          setLoading(false);
           return;
         }
 
         if (!response.ok) {
           // Otros códigos de error (5xx, 4xx distinto de 404)
           setError('Ocurrió un error. Intentá de nuevo.');
-          setLoading(false);
           return;
         }
 
