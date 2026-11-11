@@ -18,7 +18,7 @@ export default function App() {
   const [isPanelOpen, togglePanel, , closePanel] = useToggle(false);
 
   return (
-    <div className="min-h-screen bg-[#0f0f17] text-gray-100 font-sans flex flex-col">
+    <div className="min-h-screen bg-[var(--color-bg-dark)] text-[#e8f5e8] font-sans flex flex-col">
       {/* Barra de navegación superior fija */}
       <Navbar onOpenPanel={togglePanel} />
 
@@ -27,10 +27,10 @@ export default function App() {
         {/* Encabezado de búsqueda */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl font-bold text-[#d8f0d8]">
               Buscador de Personajes
             </h2>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <p className="text-xs text-[#4a6b4a] mt-0.5">
               Explora dimensiones y guarda a tus personajes favoritos
             </p>
           </div>
@@ -44,20 +44,18 @@ export default function App() {
         {/* 2. Estado de Error (de red o API) */}
         {!loading && error && (
           <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-8 text-center my-8 max-w-lg mx-auto">
-            <span className="text-4xl block mb-2">⚠️</span>
             <h3 className="text-lg font-bold text-red-400">Hubo un problema</h3>
-            <p className="text-sm text-gray-300 mt-1">{error}</p>
+            <p className="text-sm text-[#a0b8a0] mt-1">{error}</p>
           </div>
         )}
 
         {/* 3. Estado Inicial (cuando el usuario todavía no buscó nada) */}
         {!loading && !error && query.trim() === '' && (
-          <div className="bg-[#161722]/50 border border-dashed border-gray-800 rounded-2xl p-12 text-center my-8 max-w-lg mx-auto">
-            <span className="text-4xl block mb-2">🛸</span>
-            <h3 className="text-lg font-bold text-white">
-              ¡Comenzá tu búsqueda!
+          <div className="bg-[var(--color-bg-card)] border border-dashed border-[var(--color-portal-dim)]/30 rounded-2xl p-12 text-center my-8 max-w-lg mx-auto">
+            <h3 className="text-lg font-bold text-[#d8f0d8]">
+              Comenzá tu búsqueda
             </h3>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-[#4a6b4a] mt-1">
               Escribí un nombre en el buscador superior para encontrar personajes de la serie.
             </p>
           </div>

@@ -30,7 +30,7 @@ export function FavoritesProvider({ children }) {
              name: character.name,
              status: character.status,
              species: character.species,
-             origin: character.origin?.name ?? character.origin ?? '',
+             origin: character.origin,
              image: character.image,
            }]
     );

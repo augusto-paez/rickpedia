@@ -30,40 +30,42 @@ export default function FavoritesPanel({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm transition-opacity"
+      className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm"
       onClick={onClose}
     >
       {/* Contenedor del panel (evita que el clic interno cierre el overlay) */}
       <aside
-        className="w-full max-w-md bg-[#141420] border-l border-gray-800 h-full p-6 flex flex-col justify-between shadow-2xl"
+        className="panel-enter w-full max-w-md bg-[var(--color-bg-panel)] border-l border-[var(--color-portal-dim)]/40 h-full p-6 flex flex-col justify-between shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div>
           {/* Cabecera del panel */}
-          <div className="flex justify-between items-center border-b border-gray-800 pb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xl">⭐</span>
-              <h2 className="text-xl font-bold text-white">
-                Favoritos ({favorites.length})
-              </h2>
-            </div>
+          <div className="flex justify-between items-center border-b border-[var(--color-portal-dim)]/30 pb-4">
+            <h2
+              className="text-xl text-[var(--color-portal)]"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Favoritos ({favorites.length})
+            </h2>
             <button
               type="button"
               onClick={onClose}
               aria-label="Cerrar panel"
-              className="text-gray-400 hover:text-white text-2xl font-bold p-1 cursor-pointer transition-colors"
+              className="text-[#4a6b4a] hover:text-[var(--color-portal)] p-1 cursor-pointer transition-colors"
             >
-              ✕
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           </div>
 
           {/* Lista de favoritos */}
           <div className="mt-6">
             {favorites.length === 0 ? (
-              <div className="text-center py-16 px-4 bg-[#161722]/50 border border-dashed border-gray-800 rounded-xl mt-4">
-                <span className="text-4xl block mb-2">🧪</span>
-                <p className="text-gray-300 font-medium">No tenés favoritos guardados</p>
-                <p className="text-xs text-gray-500 mt-1">
+              <div className="text-center py-16 px-4 bg-[var(--color-bg-card)] border border-dashed border-[var(--color-portal-dim)]/30 rounded-xl mt-4">
+                <p className="text-[#c8e6c8] font-medium">No tenés favoritos guardados</p>
+                <p className="text-xs text-[#4a6b4a] mt-1">
                   Agregá personajes desde la búsqueda para verlos acá.
                 </p>
               </div>
@@ -72,20 +74,20 @@ export default function FavoritesPanel({ isOpen, onClose }) {
                 {favorites.map((character) => (
                   <li
                     key={character.id}
-                    className="flex items-center justify-between bg-[#1c1d2b] p-3 rounded-xl border border-gray-800/80 hover:border-gray-700 transition-all gap-3"
+                    className="flex items-center justify-between bg-[var(--color-bg-card)] p-3 rounded-xl border border-[var(--color-portal-dim)]/30 hover:border-[var(--color-portal)]/40 transition-all gap-3"
                   >
                     <div className="flex items-center gap-3 overflow-hidden">
                       <img
                         src={character.image}
                         alt={character.name}
-                        className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-gray-900"
+                        className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-[#030803]"
                       />
                       <div className="min-w-0">
-                        <h4 className="font-semibold text-sm text-white truncate">
+                        <h4 className="font-semibold text-sm text-[#d8f0d8] truncate">
                           {character.name}
                         </h4>
-                        <span className="text-xs text-[var(--color-cyan-accent)]">
-                          {character.status} • {character.species}
+                        <span className="text-xs text-[var(--color-portal)] opacity-70">
+                          {character.status} · {character.species}
                         </span>
                       </div>
                     </div>
@@ -94,7 +96,7 @@ export default function FavoritesPanel({ isOpen, onClose }) {
                       type="button"
                       onClick={() => remove(character)}
                       aria-label={`Quitar ${character.name} de favoritos`}
-                      className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg text-xs font-semibold transition-colors flex-shrink-0 cursor-pointer"
+                      className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-semibold transition-colors flex-shrink-0 cursor-pointer"
                     >
                       Quitar
                     </button>
@@ -107,13 +109,13 @@ export default function FavoritesPanel({ isOpen, onClose }) {
 
         {/* Botón vaciar lista al pie */}
         {favorites.length > 0 && (
-          <div className="border-t border-gray-800 pt-4 mt-auto">
+          <div className="border-t border-[var(--color-portal-dim)]/30 pt-4 mt-auto">
             <button
               type="button"
               onClick={handleClear}
-              className="w-full py-2.5 px-4 bg-rose-900/20 hover:bg-rose-900/40 text-rose-400 border border-rose-800/50 rounded-xl font-semibold text-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 bg-red-900/20 hover:bg-red-900/40 text-red-400 border border-red-800/50 rounded-xl font-semibold text-sm transition-all cursor-pointer"
             >
-              🗑️ Vaciar favoritos
+              Vaciar favoritos
             </button>
           </div>
         )}
