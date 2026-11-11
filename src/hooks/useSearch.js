@@ -15,18 +15,13 @@ export function useSearch(query) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const trimmed = query.trim();
+
   useEffect(() => {
-    // Normalizar query (trim) y abortar si está vacío
-    const trimmed = query.trim();
-    if (trimmed === '') {
-      setResults([]);
-      setLoading(false);
-      setError(null);
-      return;
-    }
+    // Si el query está vacío, no hay nada que buscar
+    if (trimmed === '') return;
 
     const controller = new AbortController();
-    const signal = controller.signal;
 
     const fetchCharacters = async () => {
       setLoading(true);
@@ -36,7 +31,7 @@ export function useSearch(query) {
       const url = `${base}/character/?name=${encodeURIComponent(trimmed)}`;
 
       try {
-        const response = await fetch(url, { signal });
+        const response = await fetch(url, { signal: controller.signal });
 
         // 404 → sin resultados, no es error
         if (response.status === 404) {
@@ -76,7 +71,12 @@ export function useSearch(query) {
 
     // Cleanup: abortar petición si query cambia antes de que termine
     return () => controller.abort();
-  }, [query]);
+  }, [trimmed]);
+
+  // Cuando el query está vacío, devolver estado limpio sin pasar por el effect
+  if (trimmed === '') {
+    return { results: [], loading: false, error: null };
+  }
 
   return { results, loading, error };
 }

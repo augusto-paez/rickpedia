@@ -54,6 +54,7 @@ export function FavoritesProvider({ children }) {
 /* -------------------------------------------------
    Hook de conveniencia para consumir el contexto
    ------------------------------------------------- */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFavorites() {
   const context = useContext(FavoritesContext);
   if (!context) {
